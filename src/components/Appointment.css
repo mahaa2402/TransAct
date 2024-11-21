@@ -1,0 +1,106 @@
+/* src/AppointmentForm.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: black;
+  color: #fff; /* Change to visible color */
+  overflow: auto;
+}
+
+.appointment-form-container {
+  border: 2px solid #fff;
+  color: #cccccc;
+  padding: 50px;
+  margin: 100px auto;
+  border-radius: 8px;
+  background-color: #46454580;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 0 25px rgba(1, 134, 218, 0.5), 0 0 25px rgba(182, 49, 167, 0.5);
+  position: relative;
+}
+
+.appointment-form {
+  color: #999;
+  padding: 40px;
+  margin: 20px;
+  border-radius: 20px;
+  background-color: rgba(70, 70, 70, 0.8); /* Semi-transparent background */
+  position: relative;
+  border: 5px solid transparent;
+  border-image: linear-gradient(to right, rgb(1, 134, 218), rgb(182, 49, 167)) 1;
+  transition: box-shadow 0.3s ease;
+  max-width: 600px;
+  width: 100%;
+}
+
+.appointment-form:hover {
+  box-shadow: 0 0 25px rgba(1, 134, 218, 0.5), 0 0 25px rgba(182, 49, 167, 0.5);
+}
+
+.heading {
+  color: #d3d3d3ad; /* Set heading color */
+  font-size: 3em; /* Adjust font size for the heading */
+  margin-bottom: 20px; /* Add space below the heading */
+  text-shadow: 0 0 5px rgba(112, 111, 111, 0.551); /* Initial blur effect */
+  transition: text-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.heading:hover {
+  text-shadow: 0 0 15px rgba(1, 134, 218, 0.5), 0 0 25px rgba(182, 49, 167, 0.5); /* Glowing hover effect */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 100%; /* Full width for form groups */
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select {
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: #ff6f61;
+}
+
+.btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  padding: 12px 32px;
+  margin: 1rem;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  background-image: linear-gradient(to right, rgb(1, 134, 218), rgb(182, 49, 167));
+  border: 0;
+  color: rgba(256, 256, 256);
+}
+
+.btn:hover {
+  box-shadow: rgba(1, 134, 218, 0.5) 0px 0px 20px 0px; /* Glow effect */
+}
+
+.confirmation-message {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #d3d3d3; /* Light color for confirmation message */
+  text-align: center;
+}
