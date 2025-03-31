@@ -33,36 +33,47 @@ const LearnerLicense = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Form submitted successfully!');
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append('firstName', formData.firstName);
+    formDataToSubmit.append('lastName', formData.lastName);
+    formDataToSubmit.append('phoneNumber', formData.phoneNumber);
+    formDataToSubmit.append('email', formData.email);
+    formDataToSubmit.append('address', formData.address);
+    formDataToSubmit.append('city', formData.city);
+    formDataToSubmit.append('state', formData.state);
+    formDataToSubmit.append('aadhar', formData.aadhar);
+    formDataToSubmit.append('photo', formData.photo);
+    formDataToSubmit.append('idProof', formData.idProof);
+
+    fetch('http://localhost:3001/learners-license', {
+      method: 'POST',
+      body: formDataToSubmit,
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Form submitted successfully!');
+        } else {
+          alert('Error submitting form. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error submitting form.');
+      });
   };
 
   return (
     <div className="learner-license-container">
       <h1 className="heading">Learner's License</h1>
       <p className="paragraph">
-        Applying for a learner's license is your first step towards gaining the freedom and responsibility of driving. 
-        Our streamlined application process is designed to be user-friendly, ensuring that you can easily provide the 
-        necessary details and upload your documents. Once submitted, you will receive guidance on the next steps, 
-        including preparing for the driving test. Start your journey towards safe and confident driving by applying for 
-        your learner's license today!
+        Applying for a learner's license is your first step towards gaining the freedom and responsibility of driving. Please fill in the form below.
       </p>
-
-      <p class="instructions">
-          Instructions for Application Submission:<br></br>
-          Following are the stages of application for applying for a learner's license:<br></br>
-          1. FILL APPLICATION DETAILS LL<br></br>
-          2. UPLOAD PHOTO AND SIGNATURE (In case of eKYC through Aadhaar, only Signature needs to be uploaded)<br></br>
-          3. UPLOAD DOCUMENTS<br></br>
-          4. FEE PAYMENT<br></br>
-          5. VERIFY THE PAYMENT STATUS<br></br>
-          6. PRINT THE RECEIPT<br></br>
-          7. LL SLOT BOOK<br></br>
-          <strong>NOTE:</strong> Please go through the Road Safety tutorial before proceeding for the online Learner's Licence test.
-      </p>
-
 
       <div className="form-container">
         <form onSubmit={handleSubmit}>
+          {/* First Name */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="firstName">First Name:</label>
@@ -77,6 +88,7 @@ const LearnerLicense = () => {
               />
             </div>
 
+            {/* Last Name */}
             <div className="form-group">
               <label htmlFor="lastName">Last Name:</label>
               <input
@@ -91,6 +103,7 @@ const LearnerLicense = () => {
             </div>
           </div>
 
+          {/* Phone Number */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="phoneNumber">Phone Number:</label>
@@ -102,10 +115,11 @@ const LearnerLicense = () => {
                 onChange={handleInputChange}
                 required
                 pattern="[0-9]{10}"
+                title="Please enter a 10-digit phone number"
               />
-              <small>Format: 1234567890</small>
             </div>
 
+            {/* Email */}
             <div className="form-group">
               <label htmlFor="email">Email:</label>
               <input
@@ -119,6 +133,7 @@ const LearnerLicense = () => {
             </div>
           </div>
 
+          {/* Address */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="address">Address:</label>
@@ -131,9 +146,8 @@ const LearnerLicense = () => {
                 required
               />
             </div>
-          </div>
 
-          <div className="form-row">
+            {/* City */}
             <div className="form-group">
               <label htmlFor="city">City:</label>
               <input
@@ -145,7 +159,10 @@ const LearnerLicense = () => {
                 required
               />
             </div>
+          </div>
 
+          {/* State */}
+          <div className="form-row">
             <div className="form-group">
               <label htmlFor="state">State:</label>
               <input
@@ -157,9 +174,8 @@ const LearnerLicense = () => {
                 required
               />
             </div>
-          </div>
 
-          <div className="form-row">
+            {/* Aadhar */}
             <div className="form-group">
               <label htmlFor="aadhar">Aadhar Number:</label>
               <input
@@ -170,11 +186,12 @@ const LearnerLicense = () => {
                 onChange={handleInputChange}
                 required
                 pattern="[0-9]{12}"
+                title="Please enter a 12-digit Aadhar number"
               />
-              <small>Format: 12-digit Aadhar number</small>
             </div>
           </div>
 
+          {/* File Upload Fields */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="photo">Upload Photo:</label>
@@ -200,11 +217,13 @@ const LearnerLicense = () => {
               />
             </div>
           </div>
-          <button type='submit' class="btn btn-gradient btn-glow">APPLY</button>
+
+          {/* Submit Button */}
+          <button type="submit" className="btn btn-gradient btn-glow">APPLY</button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default LearnerLicense;

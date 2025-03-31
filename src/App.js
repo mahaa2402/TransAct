@@ -12,12 +12,18 @@ import LoginPage from "./components/UserLogin";
 // Corrected AdminDashboard import
 import ScrollToTop from './components/ScrollToTop'; 
 import RtoAboutUs from './components/RtoAboutUs'; 
-import Map from './components/Map'; 
 import SignUp from './components/SignUp';
+import Map from './components/Map';
+import VehicleRegistration from './components/vehicleRegistration';
 import VehiclePermit from './components/VehiclePermit';
-
-import VehicleRegistration from './components/VehicleRegistration';
- import VehicleInspectionServices from './components/VehicleInspectionServices';
+import AdminFeeChecking from './components/AdminFeeChecking';
+import VehicleInspectionServices from './components/VehicleInspectionServices';
+import VehicleFines from './components/ViewFines';
+import ViewFines from './components/ViewFines';import VehicleServices from './components/VehicleService'
+import PaymentPage from './components/PaymentPage';
+import FcComponent from './components/FcComponent';
+import FetchViolations from './components/FetchViolations';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -36,23 +42,35 @@ function App() {
         
         {/* Route for appointments, "/appointments" */}
         <Route path="/appointments" element={<Appointments />} />
+        <Route path="/PaymentPage" element={<PaymentPage />} />
         
         {/* Route for duplicate license */}
         <Route path="/duplicatelicense" element={<DuplicateLicense />} />
+
+        <Route path="/VehicleRegistration" element={<VehicleRegistration />} />
+        <Route path="/VehiclePermit" element={<VehiclePermit />} />
+        <Route path="/VehicleInspectionServices" element={<VehicleInspectionServices />} />
+        <Route path="/VehicleFines" element={<VehicleFines />} />
+        <Route path="/ViewFines" element={<ViewFines />} />
+        <Route path="/VehicleServices" element={<VehicleServices />} />
+        <Route path="/FcComponent" element={<FcComponent />} />
+        <Route path="/fetchviolations" element={<FetchViolations />} />
+        <Route path="/footer" element={<Footer />} />
+       
         
+
+
+
         {/* Admin login route */}
         <Route path="/admin-login" element={<AdminLogin />} />
 
         {/* Admin dashboard route */}
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/adminFeeChecking" element={<AdminFeeChecking />} />
 
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/Map" element={<Map />} />
-
-        <Route path="/VehicleRegistration" element={<VehicleRegistration />} />
-        <Route path="/VehiclePermit" element={<VehiclePermit />} />
-        <Route path="/VehicleInspectionServices" element={<VehicleInspectionServices/>} />
         
+        <Route path="/map" element={<Map />} />
         {/* Add a fallback route to handle undefined routes */}
         <Route path="*" element={<MainPage />} /> {/* Redirects undefined routes to MainPage */}
       </Routes>

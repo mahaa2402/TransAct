@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './VehicleInspectionServices.css';
+import {useNavigate} from 'react-router-dom';
 
 const VehicleInspectionServices = () => {
   const [selectedCity, setSelectedCity] = useState('');
+  const navigate = useNavigate();
 
   // RTO locations based on selected city
   const rtoLocations = {
@@ -27,6 +29,11 @@ const VehicleInspectionServices = () => {
     setSelectedCity(event.target.value);
   };
 
+  
+  const AppointmentDetails = () => {
+    navigate('/appointments');
+  };
+
   return (
     <div className="vehicle-inspection-container">
       <h1 className="heading">Vehicle Inspection Services</h1>
@@ -44,7 +51,7 @@ const VehicleInspectionServices = () => {
             <h3>Safety Inspections</h3>
           </a>
           <p>Conducted to ensure vehicles meet safety standards.</p>
-          <a href="/inspections/safety" className="more-button">More</a>
+          <button className="btn btn-gradient btn-glow" onClick={AppointmentDetails}>More</button>
         </div>
         <div className="inspection-box">
           <a href="/inspections/emissions">
@@ -52,7 +59,7 @@ const VehicleInspectionServices = () => {
             <h3>Emissions Tests</h3>
           </a>
           <p>Required to check the vehicle's emissions compliance.</p>
-          <a href="/inspections/emissions" className="more-button">More</a>
+          <button className="btn btn-gradient btn-glow" onClick={AppointmentDetails}>More</button>
         </div>
         <div className="inspection-box">
           <a href="/inspections/annual">
@@ -60,7 +67,7 @@ const VehicleInspectionServices = () => {
             <h3>Annual Inspections</h3>
           </a>
           <p>Routine checks to maintain vehicle registration.</p>
-          <a href="/inspections/annual" className="more-button">More</a>
+          <button className="btn btn-gradient btn-glow" onClick={AppointmentDetails}>More</button>
         </div>
       </div>
 

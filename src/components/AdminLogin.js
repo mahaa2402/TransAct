@@ -24,11 +24,33 @@ const AdminLogin = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation
     if (adminEmailError === '' && adminEmail !== '' && adminPassword !== '') {
-      setAdminSuccessMessage('Admin Login Successful!');
-      navigate('/admin'); // Navigates to Admin Dashboard
+      try {
+        const response = await fetch('http://localhost:3001/admin-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: adminEmail, password: adminPassword }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          setAdminSuccessMessage('Admin Login Successful!');
+          navigate('/admin'); // Navigate to admin dashboard
+        } else {
+          setAdminSuccessMessage('');
+          alert(result.message); // Alert the error message from server
+        }
+      } catch (error) {
+        console.error('Error during admin login:', error);
+        alert('Login failed. Please try again.');
+      }
     } else {
       setAdminSuccessMessage('');
       alert('Please fill out the form correctly.');

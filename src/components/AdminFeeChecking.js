@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./AdminHomePage.css";
 import DrivingLicenseApplicants from "./DriverLicenseApplicants"; // Import detailed component
-import VehicleOwners from "./VehicleRegistrationAppliacnts";
-import AdminFeeChecking from "./AdminFeeChecking";
-import FetchAppointments from "./FetchAppointments";
-import FcComponent from "./FcComponent";
+import IssueFine from "./IssueFine";
+import FetchViolations from "./FetchViolations";
+import VehicleFines from "./VehicleFines";
+import AdminFinesManagement from "./AdminFinesManagement";
 
 
-const AdminDashboard = () => {
+
+const AdminFeeChecking = () => {
   const [drivingLicenseApplicants, setDrivingLicenseApplicants] = useState(0);
   const [onlineTestApplicants, setOnlineTestApplicants] = useState(0);
   const [approvedApplications, setApprovedApplications] = useState(0);
@@ -24,32 +25,31 @@ const AdminDashboard = () => {
   const renderContent = () => {
     switch (selectedCategory) {
       case 'drivingLicense':
-        return <DrivingLicenseApplicants />;
-      // Add other cases for different categories
+        return <IssueFine />;
       case 'learnerLicense':
-        return <VehicleOwners/>;
-      
-      case 'feescheck':
-          return <AdminFeeChecking/>;
+        return <AdminFinesManagement />;
       case 'appointments':
-       return <FetchAppointments/>;
+        return <VehicleFines />;
+      case 'duplicateLicense':
+            return <FetchViolations />;
+      // Add other cases for different categories
       default:
         return (
           <div className="dashboard-grid">
             <div className="dashboard-card card1" onClick={() => setSelectedCategory('drivingLicense')}>
-              <h2>Driving License Applicants</h2>
+              <h2>Issue a Fine</h2>
               <p>{drivingLicenseApplicants}</p>
             </div>
             <div className="dashboard-card card2" onClick={() => setSelectedCategory('learnerLicense')}>
-              <h2>Vehicle Registrations</h2>
+              <h2>Marking Fine as Paid</h2>
               <p>{onlineTestApplicants}</p>
             </div>
             <div className="dashboard-card card3" onClick={() => setSelectedCategory('appointments')}>
-              <h2>No of Appointments</h2>
+              <h2>View Vehicle Fines</h2>
               <p>{approvedApplications}</p>
             </div>
-            <div className="dashboard-card card4" onClick={() => setSelectedCategory('feescheck')}>
-              <h2>Fine Management</h2>
+            <div className="dashboard-card card4" onClick={() => setSelectedCategory('duplicateLicense')}>
+              <h2>View Violations</h2>
               <p>{pendingApprovals}</p>
             </div>
           </div>
@@ -59,10 +59,10 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1 className="dashboard-title">Admin Dashboard</h1>
+    
       {renderContent()}
     </div>
   );
 };
 
-export default AdminDashboard;
+export default AdminFeeChecking;

@@ -4,21 +4,21 @@ import './VehiclePermit.css';
 const VehiclePermit = () => {
   const [formData, setFormData] = useState({
     applicantName: '',
-    vehicleMake: '',  // Vehicle make (e.g., Toyota, Ford)
-    vehicleModel: '',  // Vehicle model (e.g., Camry, F-150)
-    yearOfManufacture: '', // Year of manufacture
-    vehicleVIN: '', // Vehicle Identification Number (VIN)
-    licensePlate: '', // License plate number (if applicable)
-    vehicleColor: '', // Color of the vehicle
-    ownerName: '', // Owner's name
-    phoneNumber: '', // Phone number
-    email: '', // Email address
-    address: '', // Address
-    city: '', // City
-    state: '', // State
-    idProof: null, // ID proof
-    insurance: null, // Insurance document
-    odometerReading: '', // Odometer reading (if applicable)
+    vehicleMake: '',
+    vehicleModel: '',
+    yearOfManufacture: '',
+    vehicleVIN: '',
+    licensePlate: '',
+    vehicleColor: '',
+    ownerName: '',
+    phoneNumber: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    idProof: null,
+    insurance: null,
+    odometerReading: '',
   });
 
   const handleInputChange = (e) => {
@@ -37,32 +37,39 @@ const VehiclePermit = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Vehicle Permit Application submitted successfully!');
-    // Here you can also send formData to a server or perform other actions.
+
+    const formDataObj = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataObj.append(key, formData[key]);
+    });
+
+    try {
+      const response = await fetch('http://localhost:3001/vehicle-permit', {
+        method: 'POST',
+        body: formDataObj,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Vehicle Permit Application submitted successfully!');
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+      alert('There was an error submitting the form.');
+    }
   };
 
   return (
     <div className="vehicle-permit-container">
       <h1 className="heading">Vehicle Permit Application</h1>
       <p className="paragraph">
-        Applying for a vehicle permit is essential for legal and safe driving on the roads. 
-        This application process is straightforward and requires you to provide the necessary 
-        details about your vehicle and upload the required documents. Once submitted, 
-        you will receive information about the next steps. Start your journey towards 
-        compliant driving by applying for your vehicle permit today!
-      </p>
-
-      <p className="instructions">
-        Instructions for Application Submission:<br />
-        Follow these steps to complete your vehicle permit application:<br />
-        1. Fill in the application details.<br />
-        2. Upload required documents (ID proof, insurance, etc.).<br />
-        3. Pay the applicable fees.<br />
-        4. Verify the payment status.<br />
-        5. Print the receipt.<br />
-        <strong>NOTE:</strong> Ensure all information is accurate to avoid delays.
+        Applying for a vehicle permit is essential for legal and safe driving on the roads.
+        This application process is straightforward and requires you to provide the necessary
+        details about your vehicle and upload the required documents.
       </p>
 
       <div className="form-container">
@@ -81,12 +88,33 @@ const VehiclePermit = () => {
                 minLength="2"
               />
             </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
           </div>
 
           {/* Vehicle Information */}
           <div className="form-row">
-           
-           
+            <div className="form-group">
+              <label htmlFor="vehicleMake">Vehicle Make:</label>
+              <input
+                type="text"
+                id="vehicleMake"
+                name="vehicleMake"
+                value={formData.vehicleMake}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
             <div className="form-group">
               <label htmlFor="vehicleModel">Vehicle Model:</label>
@@ -98,7 +126,6 @@ const VehiclePermit = () => {
                 onChange={handleInputChange}
                 required
               />
-              
             </div>
           </div>
 
@@ -113,7 +140,7 @@ const VehiclePermit = () => {
                 onChange={handleInputChange}
                 required
                 min="1900"
-                max={new Date().getFullYear()} // Prevent future dates
+                max={new Date().getFullYear()}
               />
             </div>
 
@@ -130,7 +157,31 @@ const VehiclePermit = () => {
             </div>
           </div>
 
-         
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="licensePlate">License Plate:</label>
+              <input
+                type="text"
+                id="licensePlate"
+                name="licensePlate"
+                value={formData.licensePlate}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="vehicleColor">Vehicle Color:</label>
+              <input
+                type="text"
+                id="vehicleColor"
+                name="vehicleColor"
+                value={formData.vehicleColor}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
 
           {/* Ownership Information */}
           <div className="form-row">
@@ -175,7 +226,19 @@ const VehiclePermit = () => {
             </div>
 
             <div className="form-group">
-            <label htmlFor="state">State:</label>
+              <label htmlFor="city">City:</label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                value={formData.city}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="state">State:</label>
               <input
                 type="text"
                 id="state"
@@ -200,12 +263,6 @@ const VehiclePermit = () => {
                 required
               />
             </div>
-          </div>
-
-          <div className="form-row">
-           
-
-          
           </div>
 
           {/* Document Uploads */}
@@ -234,13 +291,13 @@ const VehiclePermit = () => {
               />
             </div>
           </div>
-          
+
           {/* Submit Button */}
-          <button type='submit' className="btn btn-gradient btn-glow">APPLY</button>
+          <button type="submit" className="btn btn-gradient btn-glow">APPLY</button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default VehiclePermit;

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './UserLogin.css';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 
 const UserLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -26,9 +27,34 @@ const UserLogin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (emailError === '' && email !== '' && password !== '') {
-      setSuccessMessage('Login Successful!');
-      // Navigate to homepage after a successful login
-      navigate('/'); // Adjust this path as needed for your homepage
+      // Send login request to the server
+      fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Login failed');
+          }
+          return response.json(); // Parse JSON response
+        })
+        .then((data) => {
+          if (data.message === 'Login Successful!') {
+            setSuccessMessage(data.message);
+            setErrorMessage('');
+            navigate('/'); // Redirect to home
+          } else {
+            setErrorMessage(data.message); // Set error message from server
+            setSuccessMessage('');
+          }
+        })
+        .catch((error) => {
+          setErrorMessage('Login failed. Please try again.');
+          console.error('Error logging in:', error);
+        });
     } else {
       setSuccessMessage('');
       alert('Please fill out the form correctly.');
@@ -62,6 +88,7 @@ const UserLogin = () => {
         </div>
         <button type="submit" className="btn-login">Login</button>
         {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <p className="success-message">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </p>

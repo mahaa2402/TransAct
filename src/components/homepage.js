@@ -2,9 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import './homepage.css';
 import Sidebar from './menu'; 
-// Homepage.js
-
-
 
 function Homepage() {
   const navigate = useNavigate(); // Hook to navigate to other routes

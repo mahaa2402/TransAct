@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
-import "./FetchViolations.css";
 
-const DrivingLicenseApplicants = () => {
-  const [detailedData, setDetailedData] = useState([]);
+const VehicleOwners = () => {
+  const [vehicleData, setVehicleData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchApplicantsData = async () => {
+    const fetchVehicleOwnersData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/drivers-license-applicants');
+        const response = await fetch('http://localhost:3001/vehicle-owners');
         const result = await response.json();
 
         if (result.success) {
-          setDetailedData(result.data); // Set the fetched data
+          setVehicleData(result.data); // Set the fetched data
         } else {
           setError(result.message); // Handle error message from server
         }
       } catch (err) {
         console.error('Error fetching data:', err);
-        setError('Failed to fetch applicants data.'); // Set a general error message
+        setError('Failed to fetch vehicle owners data.'); // Set a general error message
       } finally {
         setLoading(false); // Set loading to false after the request
       }
     };
 
-    fetchApplicantsData();
+    fetchVehicleOwnersData();
   }, []);
 
   if (loading) {
@@ -38,23 +37,23 @@ const DrivingLicenseApplicants = () => {
 
   return (
     <div>
-      <h2>Driving License Applicants Details</h2>
+      <h2>Vehicle Owners Details</h2>
       <table>
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone Number</th>
-            <th>Email</th>
+            <th>Owner Name</th>
+            <th>Owner Contact</th>
+            <th>Owner Aadhar</th>
+            <th>Vehicle ID Number</th>
           </tr>
         </thead>
         <tbody>
-          {detailedData.map((item) => (
+          {vehicleData.map((item) => (
             <tr key={item._id}> {/* Use _id for MongoDB ID */}
-              <td>{item.firstName}</td>
-              <td>{item.lastName}</td>
-              <td>{item.phoneNumber}</td>
-              <td>{item.email}</td>
+              <td>{item.ownerName}</td>
+              <td>{item.ownerContact}</td>
+              <td>{item.ownerAadhar}</td>
+              <td>{item.vehicleIDNumber}</td>
             </tr>
           ))}
         </tbody>
@@ -63,4 +62,4 @@ const DrivingLicenseApplicants = () => {
   );
 };
 
-export default DrivingLicenseApplicants;
+export default VehicleOwners;

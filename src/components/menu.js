@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './menu.css';
 import { Link } from 'react-router-dom';
+import FcComponent from './FcComponent';
+import Footer from './Footer';
 
 // Make sure to update the path
 
@@ -34,35 +36,35 @@ function Sidebar() {
                     </Link>
                     </li>
                     <li className="has-subnav">
-                        <a href="#">
-                            <i className="fa fa-comments fa-2x"></i>
-                            <span className="nav-text">Services</span>
-                        </a>
+                    <Link to="/VehicleServices"> {/* Use Link instead of <a> */}
+                            <i className="fa fa-globe fa-2x"></i>
+                           <span className="nav-text">Services</span>
+                    </Link>
                     </li>
                     <li className="has-subnav">
-                        <a href="#">
-                            <i className="fa fa-camera-retro fa-2x"></i>
-                            <span className="nav-text">Contact Us</span>
-                        </a>
+                    <Link to="/footer"> {/* Use Link instead of <a> */}
+                            <i className="fa fa-globe fa-2x"></i>
+                           <span className="nav-text">Contact Number</span>
+                    </Link>
                     </li>
                     <li>
-                        <a href="#">
-                            <i className="fa fa-film fa-2x"></i>
-                            <span className="nav-text">Tutorials</span>
-                        </a>
+                    <Link to="/appointments"> {/* Use Link instead of <a> */}
+                            <i className="fa fa-globe fa-2x"></i>
+                           <span className="nav-text">Appointments</span>
+                    </Link>
                     </li>
                    
-                    <li>
+                    <li className="has-subnav">
                     <Link to="/Map"> {/* Use Link instead of <a> */}
                             <i className="fa fa-globe fa-2x"></i>
                            <span className="nav-text">Map</span>
                     </Link>
                     </li>
                     <li>
-                        <a href="#">
-                            <i className="fa fa-info fa-2x"></i>
-                            <span className="nav-text">Info</span>
-                        </a>
+                    <Link to="/FcComponent"> {/* Use Link instead of <a> */}
+                            <i className="fa fa-globe fa-2x"></i>
+                           <span className="nav-text">fc</span>
+                    </Link>
                     </li>
                 </ul>
                 <ul className="logout">
